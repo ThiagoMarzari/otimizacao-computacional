@@ -8,11 +8,12 @@ def funcao(a, b, x0, x1):
     result.append(a*x + b)
   return result
 
-a = 2
-b = -3
+a = 5
+b = -11
 #Intervalo de x
-x0 = 0
-x1 = 2
+x0 = -2
+x1 = 5
+
 
 
 print(funcao(a, b, x0, x1))
