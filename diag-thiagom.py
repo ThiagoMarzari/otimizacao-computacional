@@ -1,5 +1,12 @@
+# ============================================================
+# Método de Gauss-Jordan para resolução de sistemas lineares
+# Diagonaliza a matriz aumentada, tornando a diagonal = 1
+# e todos os outros elementos = 0
+# ============================================================
+
+
 def imprimir_matriz(matriz, titulo=""):
-    n = len(matriz)
+    # Exibe a matriz formatada com separador entre coeficientes e termo independente
     if titulo:
         print(f"\n  {titulo}")
     print("  " + "-" * (10 * (len(matriz[0]))))
@@ -7,7 +14,7 @@ def imprimir_matriz(matriz, titulo=""):
         valores = "  | "
         for j, v in enumerate(linha):
             if j == len(linha) - 1:
-                valores += " | "
+                valores += " | "  # Separador visual antes da última coluna (termo independente)
             valores += f"{v:8.2f} "
         valores += "|"
         print(valores)
@@ -15,12 +22,13 @@ def imprimir_matriz(matriz, titulo=""):
 
 
 def copiar_matriz(matriz):
+    # Retorna uma cópia independente para não alterar a matriz original
     return [linha[:] for linha in matriz]
 
 
 def gauss_jordan(matriz_original):
     matriz = copiar_matriz(matriz_original)
-    n = len(matriz)
+    n = len(matriz)  # Número de equações
     passo = 1
 
     print("\n" + "=" * 60)
@@ -29,6 +37,7 @@ def gauss_jordan(matriz_original):
     print("\n  Matriz aumentada inicial (coeficientes | termos independentes):")
     imprimir_matriz(matriz)
 
+    # Itera por cada coluna cada iteraçao elimina uma variavel
     for i in range(n):
         print(f"\n{'=' * 60}")
         print(f"  PASSO {passo}: Trabalhando na coluna {i + 1} (variável x{i + 1})")
@@ -36,6 +45,7 @@ def gauss_jordan(matriz_original):
         passo += 1
 
         # --- Troca de linhas se o pivô for zero ---
+        # Um pivô zero impede a divisão; buscamos uma linha abaixo com valor não nulo
         if matriz[i][i] == 0:
             trocou = False
             for k in range(i + 1, n):
@@ -47,10 +57,12 @@ def gauss_jordan(matriz_original):
                     trocou = True
                     break
             if not trocou:
+                # Nenhuma linha válida encontrada: sistema sem solução única
                 print(f"\n  [ERRO] Sistema sem solução única (coluna {i+1} é nula).")
                 return None
 
-        # --- Normalizar a linha do pivô (tornar pivô = 1) ---
+        # --- Etapa a: tornar pivô = 1
+        # Divide toda a linha pelo valor do pivô: L_i = L_i / pivô
         pivo = matriz[i][i]
         if pivo != 1:
             print(f"\n  Etapa {passo - 1}a: Tornar pivô = 1")
@@ -61,12 +73,14 @@ def gauss_jordan(matriz_original):
         else:
             print(f"\n  Etapa {passo - 1}a: Pivô já é 1, nenhuma normalização necessária.")
 
-        # --- Zerar todos os outros elementos da coluna i ---
+        # --- Etapa b: Zerar todos os outros elementos da coluna i ---
+        # Para cada linha k ≠ i, aplica: L_k = L_k - fator * L_i
+        # onde fator é o valor atual de matriz[k][i]
         print(f"\n  Etapa {passo - 1}b: Zerar os demais elementos da coluna {i + 1}")
         alguma_operacao = False
         for k in range(n):
             if k != i and matriz[k][i] != 0:
-                fator = matriz[k][i]
+                fator = matriz[k][i]  # Valor que queremos eliminar na linha k
                 sinal = "-" if fator > 0 else "+"
                 print(f"  Operação: L{k+1} = L{k+1} {sinal} {abs(fator):.2f} * L{i+1}")
                 for j in range(n + 1):
@@ -78,12 +92,13 @@ def gauss_jordan(matriz_original):
         else:
             print("  Coluna já zerada, nenhuma operação necessária.")
 
-    # --- Resultado final ---
+    # --- Resultado final: matriz identidade | solução ---
     print(f"\n{'=' * 60}")
     print("  MATRIZ DIAGONALIZADA (Identidade | Solução)")
     print(f"{'=' * 60}")
     imprimir_matriz(matriz)
 
+    # A solução está na última coluna da matriz diagonalizada
     solucao = [matriz[i][n] for i in range(n)]
 
     print(f"\n{'=' * 60}")
@@ -97,6 +112,7 @@ def gauss_jordan(matriz_original):
 
 
 def ler_sistema():
+    # Lê o sistema linear do terminal: número de variáveis e coeficientes de cada equação
     print("=" * 60)
     print("  RESOLUÇÃO DE SISTEMA LINEAR — GAUSS-JORDAN")
     print("=" * 60)
@@ -121,7 +137,7 @@ def ler_sistema():
                 if len(entrada) != n + 1:
                     print(f"  Esperado {n + 1} valores, recebeu {len(entrada)}. Tente novamente.")
                     continue
-                linha = [float(v) for v in entrada]
+                linha = [float(v) for v in entrada]  # Converte strings para float
                 matriz.append(linha)
                 break
             except ValueError:
