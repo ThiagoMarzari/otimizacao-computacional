@@ -19,7 +19,7 @@ def imprimir_matriz(matriz, titulo=""):
         valores += "|"
         print(valores)
     print("  " + "-" * (10 * (len(matriz[0]))))
-    
+
 
 def calcular(matriz):
     n = len(matriz)  # Número de equações
@@ -38,10 +38,12 @@ def calcular(matriz):
         print(f"{'=' * 60}")
         passo += 1
 
+        pivo = matriz[i][i]
+
         # --- Troca de linhas se o pivô for zero ---
-        # Um pivô zero impede a divisão; buscamos uma linha abaixo com valor não nulo
-        if matriz[i][i] == 0:
-            print(f'matriz[{i}][{i}] = {matriz[i][i]}')
+        # não pode ser dividido por zero, entao procura por uma linha abaixo para trocar
+        if pivo == 0:
+            print(f'matriz[{i}][{i}] = {pivo}')
             trocou = False
             for k in range(i + 1, n):
                 if matriz[k][i] != 0:
@@ -58,8 +60,8 @@ def calcular(matriz):
 
         # --- Etapa a: tornar pivô = 1
         # Divide toda a linha pelo valor do pivô: L_i = L_i / pivô
-        pivo = matriz[i][i]
-        print(f'\n pivo matriz[{i}][{i}] = {matriz[i][i]}')
+        
+        print(f'\n pivo matriz[{i}][{i}] = {pivo}')
         if pivo != 1:
             print(f"\n  Etapa {passo - 1}a: tornar pivo = 1")
             print(f"  Operação: L{i+1} = L{i+1} / {pivo:.2f}")
