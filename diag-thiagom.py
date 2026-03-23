@@ -19,15 +19,9 @@ def imprimir_matriz(matriz, titulo=""):
         valores += "|"
         print(valores)
     print("  " + "-" * (10 * (len(matriz[0]))))
+    
 
-
-def copiar_matriz(matriz):
-    # Retorna uma cópia independente para não alterar a matriz original
-    return [linha[:] for linha in matriz]
-
-
-def calcular(matriz_original):
-    matriz = copiar_matriz(matriz_original)
+def calcular(matriz):
     n = len(matriz)  # Número de equações
     passo = 1
 
