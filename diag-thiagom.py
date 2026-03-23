@@ -5,8 +5,8 @@
 # ============================================================
 
 
+# Exibe a matriz formatada com separador entre coeficientes e termo independente
 def imprimir_matriz(matriz, titulo=""):
-    # Exibe a matriz formatada com separador entre coeficientes e termo independente
     if titulo:
         print(f"\n  {titulo}")
     print("  " + "-" * (10 * (len(matriz[0]))))
@@ -14,7 +14,7 @@ def imprimir_matriz(matriz, titulo=""):
         valores = "  | "
         for j, v in enumerate(linha):
             if j == len(linha) - 1:
-                valores += " | "  # Separador visual antes da última coluna (termo independente)
+                valores += " | "  
             valores += f"{v:8.2f} "
         valores += "|"
         print(valores)
@@ -31,7 +31,7 @@ def calcular(matriz):
     print("\n  Matriz inicial (coeficientes | termos independentes):")
     imprimir_matriz(matriz)
 
-    # Itera por cada coluna cada iteraçao elimina uma variavel
+    # Percorre por cada coluna 
     for i in range(n):
         print(f"\n{'=' * 60}")
         print(f"  PASSO {passo}: Trabalhando na coluna {i + 1} (variável x{i + 1})")
@@ -40,7 +40,7 @@ def calcular(matriz):
 
         pivo = matriz[i][i]
 
-        # --- Troca de linhas se o pivô for zero 
+        #  Troca de linhas se o pivô for zero 
         # não pode ser dividido por zero, entao procura por uma linha abaixo para trocar
         if pivo == 0:
             print(f'matriz[{i}][{i}] = {pivo}')
@@ -58,9 +58,8 @@ def calcular(matriz):
                 print(f"\n  [ERRO] Sistema sem solução única (coluna {i+1} é nula).")
                 return None
 
-        # --- Etapa a: tornar pivô = 1
+        # Etapa a: tornar pivô = 1
         # Divide toda a linha pelo valor do pivô: L_i = L_i / pivô
-        
         print(f'\n pivo matriz[{i}][{i}] = {pivo}')
         if pivo != 1:
             print(f"\n  Etapa {passo - 1}a: tornar pivo = 1")
@@ -71,7 +70,7 @@ def calcular(matriz):
         else:
             print(f"\n  Etapa {passo - 1}a: Pivô já é 1.")
 
-        # --- Etapa b: Zerar todos os outros elementos da coluna i ---
+        #  Etapa b: Zerar todos os outros elementos da coluna i 
         # Para cada linha k ≠ i, aplica: L_k = L_k - fator * L_i
         # onde fator é o valor atual de matriz[k][i]
         print(f"\n  Etapa {passo - 1}b: Zerar os demais elementos da coluna {i + 1}")
@@ -90,13 +89,13 @@ def calcular(matriz):
         else:
             print("  Coluna já zerada, nenhuma operação necessária.")
 
-    # --- Resultado final: matriz identidade | solução ---
+    ## FINAL
     print(f"\n{'=' * 60}")
     print("  MATRIZ DIAGONALIZADA (Identidade | Solução)")
     print(f"{'=' * 60}")
     imprimir_matriz(matriz)
 
-    # O resultado está na última coluna da matriz 
+    # O resultado na última coluna da matriz 
     resultado = [matriz[i][n] for i in range(n)]
 
     print(f"\n{'=' * 60}")
@@ -109,8 +108,8 @@ def calcular(matriz):
     return resultado
 
 
+# Lê o sistema linear do terminal: número de variáveis e coeficientes de cada equação
 def iniciar():
-    # Lê o sistema linear do terminal: número de variáveis e coeficientes de cada equação
     print("=" * 60)
     print("  RESOLUÇÃO DE SISTEMA LINEAR — GAUSS-JORDAN")
     print("=" * 60)
