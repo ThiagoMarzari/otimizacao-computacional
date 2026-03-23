@@ -40,7 +40,7 @@ def calcular(matriz):
 
         pivo = matriz[i][i]
 
-        # --- Troca de linhas se o pivô for zero ---
+        # --- Troca de linhas se o pivô for zero 
         # não pode ser dividido por zero, entao procura por uma linha abaixo para trocar
         if pivo == 0:
             print(f'matriz[{i}][{i}] = {pivo}')
