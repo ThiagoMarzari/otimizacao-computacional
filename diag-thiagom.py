@@ -96,7 +96,7 @@ def calcular(matriz):
     print(f"{'=' * 60}")
     imprimir_matriz(matriz)
 
-    # O resultado está na última coluna da matriz diagonalizada
+    # O resultado está na última coluna da matriz 
     resultado = [matriz[i][n] for i in range(n)]
 
     print(f"\n{'=' * 60}")
